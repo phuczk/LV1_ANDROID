@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_HoaDon"
+            android:icon="@drawable/bill"
+            android:title="quan li hoa don"
+            />
+        <item
+            android:id="@+id/nav_LoaiHang"
+            android:icon="@drawable/box"
+            android:title="quan li loai hang"
+            />
+        <item
+            android:id="@+id/nav_Hang"
+            android:icon="@drawable/p"
+            android:title="quan li hang"
+            />
+        <item
+            android:id="@+id/nav_KhachHang"
+            android:icon="@drawable/cutomer"
+            android:title="quan li khach hang"
+            />
+        <item
+            android:id="@+id/nav_Shipping"
+            android:icon="@drawable/shipping"
+            android:title="quan li don vi van chuyen"
+            />
+        <item
+            android:id="@+id/nav_WinWin"
+            android:icon="@drawable/autonomous"
+            android:title="quan li don vi Cung ung"
+            />
+        <item
+            android:id="@+id/nav_NhanVien"
+            android:icon="@drawable/worker"
+            android:title="quan li nhan vien"
+            />
+        <item
+            android:id="@+id/nav_NhapKho"
+            android:icon="@drawable/warehouse"
+            android:title="quan li don nhap kho"
+            />
+        <item android:title="thong ke">
+            <menu>
+                <item
+                    android:id="@+id/sub_Top"
+                    android:icon="@drawable/badge"
+                    android:title="top 10 hang"
+                    />
+                <item
+                    android:id="@+id/sub_DoanhThu"
+                    android:icon="@drawable/diagram"
+                    android:title="doanh thu"
+                    />
+            </menu>
+        </item>
+        <item android:title="nguoi dung">
+            <menu>
+                <item
+                    android:id="@+id/sub_AddUser"
+                    android:icon="@drawable/user"
+                    android:title="them nguoi dung"
+                    />
+                <item
+                    android:id="@+id/sub_Pass"
+                    android:icon="@drawable/password"
+                    android:title="doi mat khau"
+                    />
+                <item
+                    android:id="@+id/sub_Loggout"
+                    android:icon="@drawable/logout"
+                    android:title="logout"
+                    />
+            </menu>
+        </item>
+    </group>
+</menu>

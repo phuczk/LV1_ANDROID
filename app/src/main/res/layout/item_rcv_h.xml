@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:elevation="8dp"
+    android:background="@drawable/ln_item">
+
+    <ImageView
+        android:id="@+id/ivH"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/a" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvLHOH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="loai hang: "
+                android:textColor="#4CAF50"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                />
+            <TextView
+                android:id="@+id/tvHName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="24sp"
+                android:textColor="#8BC34A"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="ten hang"
+                android:layout_weight="1"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tvHPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="13sp"
+                    android:textColor="#4CAF50"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="300000 VND"
+                    android:layout_weight="3"
+                    />
+                <TextView
+                    android:id="@+id/tvHNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="13sp"
+                    android:textColor="#4CAF50"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="so luong: 34"
+                    android:layout_weight="3"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/btnUDH"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/btn_u_d_lh"/>
+    </LinearLayout>
+</LinearLayout>
