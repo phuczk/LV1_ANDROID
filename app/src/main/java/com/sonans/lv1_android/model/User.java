@@ -1,13 +1,11 @@
 package com.sonans.lv1_android.model;
 
 public class User {
-    private int maUser;
     public String hoTen;
     private String userName;
     private String password;
 
-    public User(int maUser, String hoTen, String userName, String password) {
-        this.maUser = maUser;
+    public User(String hoTen, String userName, String password) {
         this.hoTen = hoTen;
         this.userName = userName;
         this.password = password;
@@ -16,13 +14,6 @@ public class User {
     public User() {
     }
 
-    public int getMaUser() {
-        return maUser;
-    }
-
-    public void setMaUser(int maUser) {
-        this.maUser = maUser;
-    }
 
     public String getHoTen() {
         return hoTen;

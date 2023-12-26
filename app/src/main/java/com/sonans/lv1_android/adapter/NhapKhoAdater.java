@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sonans.lv1_android.Dao.DonViVanChuyenDao;
 import com.sonans.lv1_android.Dao.HangDao;
 import com.sonans.lv1_android.Dao.HoaDonDao;
 import com.sonans.lv1_android.Dao.KhachHangDao;
@@ -18,6 +19,7 @@ import com.sonans.lv1_android.Dao.NhapKhoDao;
 import com.sonans.lv1_android.R;
 import com.sonans.lv1_android.fragment.HoaDonFragment;
 import com.sonans.lv1_android.fragment.NhapKhoFragment;
+import com.sonans.lv1_android.model.DonViVanChuyen;
 import com.sonans.lv1_android.model.Hang;
 import com.sonans.lv1_android.model.HoaDon;
 import com.sonans.lv1_android.model.KhachHang;
@@ -51,16 +53,16 @@ public class NhapKhoAdater extends RecyclerView.Adapter<NhapKhoAdater.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull NhapKhoAdater.ViewHolder holder, int position) {
-//        item = lists.get(position);
-//        HangDao hangDao = new HangDao(holder.itemView.getContext());
-//        Hang hang = hangDao.getID(String.valueOf(item.getMaHang()));
-//        KhachHangDao khachHangDao = new KhachHangDao(holder.itemView.getContext());
-//        KhachHang khachHang = khachHangDao.getID(String.valueOf(item.getMaKhachHang()));
-//        holder.tvHD_name.setText(hang.getTenHang());
-//        holder.tvHD_soLuong.setText(String.valueOf(item.getSoLuongHangMua()));
-//        holder.tvHD_khachHang.setText(khachHang.getTenKH());
-//        holder.tvHD_tongTien.setText(String.valueOf(item.getSoLuongHangMua() * hang.getGiaHang()));
-//        holder.tvHD_ngay.setText(sdf.format(item.getNgayXuatHoaDon()));
+        item = lists.get(position);
+        HangDao hangDao = new HangDao(holder.itemView.getContext());
+        Hang hang = hangDao.getID(String.valueOf(item.getMaHangNK()));
+        DonViVanChuyenDao donViVanChuyenDao = new DonViVanChuyenDao(holder.itemView.getContext());
+        DonViVanChuyen donViVanChuyen = donViVanChuyenDao.getID(String.valueOf(item.getMaVC()));
+        holder.tvHD_name.setText(hang.getTenHang());
+        holder.tvHD_soLuong.setText(String.valueOf(lists.get(position).getSoLuong()));
+        holder.tvHD_vanChuyen.setText(donViVanChuyen.getTenDonVi());
+        holder.tvHD_ngay.setText(sdf.format(lists.get(position).getNgayNhap()));
+        holder.tvHD_tongTien.setText(String.valueOf(item.getSoLuong() * item.getGiaHang()));
     }
 
     @Override
@@ -69,15 +71,15 @@ public class NhapKhoAdater extends RecyclerView.Adapter<NhapKhoAdater.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvHD_name, tvHD_soLuong, tvHD_ngay, tvHD_tongTien, tvHD_khachHang;
+        TextView tvHD_name, tvHD_soLuong, tvHD_ngay, tvHD_tongTien, tvHD_vanChuyen;
         ImageView imgSee;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvHD_name = itemView.findViewById(R.id.tvHD_TH);
-            tvHD_soLuong = itemView.findViewById(R.id.tvHD_SL);
-            tvHD_ngay = itemView.findViewById(R.id.tvHD_N);
-            tvHD_tongTien = itemView.findViewById(R.id.tvHD_TT);
-            tvHD_khachHang = itemView.findViewById(R.id.tvHD_KH);
+            tvHD_name = itemView.findViewById(R.id.tenH_NK);
+            tvHD_soLuong = itemView.findViewById(R.id.soLuong_NK);
+            tvHD_ngay = itemView.findViewById(R.id.tzan_NK);
+            tvHD_tongTien = itemView.findViewById(R.id.tongTien_NK);
+            tvHD_vanChuyen = itemView.findViewById(R.id.vanChuen_NK);
             imgSee = itemView.findViewById(R.id.btnUpdate_HD);
         }
     }

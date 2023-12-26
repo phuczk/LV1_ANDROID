@@ -52,7 +52,7 @@ public class LoaiHangFragment extends Fragment implements LoaiHangAdapter.ChucNa
     public Context context;
     Dialog dialog;
     int maLoaiHang;
-    private Uri selectedImageUri;
+    public Uri selectedImageUri;
     String img;
     private LoaiHangAdapter.ChucNangInterFace chucNanginterface;
     private static final String SHARED_PREFS_KEY = "MyAppPreferences";

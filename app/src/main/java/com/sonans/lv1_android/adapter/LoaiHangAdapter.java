@@ -29,7 +29,8 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.ViewHo
     Context context;
     LoaiHangFragment fragment;
     LoaiHang item;
-    Uri selectedImg;
+
+    String img;
 
     public LoaiHangAdapter(List<LoaiHang> list, LoaiHangDao loaiHangDao, Context context, LoaiHangFragment fragment) {
         this.list = list;
@@ -45,10 +46,24 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.ViewHo
         return new ViewHolder(view);
     }
 
+    // Trong ViewHolder của LoaiHangAdapter
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvLHName;
+        ImageView ivLH, ivUD;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            tvLHName = itemView.findViewById(R.id.tvLHName);
+            ivLH = itemView.findViewById(R.id.ivLH);
+            ivUD = itemView.findViewById(R.id.btnUDLH);
+        }
+    }
+
+    // Trong onBindViewHolder của LoaiHangAdapter
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         item = list.get(position);
-        String img = item.getImageLH();
+        img = item.getImageLH();
         Glide.with(holder.itemView.getContext())
                 .load(img)
                 .placeholder(R.drawable.a)
@@ -64,6 +79,7 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.ViewHo
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 View dialogView = LayoutInflater.from(v.getContext()).inflate(R.layout.dialog_ud_lh, null);
                 builder.setView(dialogView);
+                AlertDialog dialog = builder.create();
                 final EditText txtID = dialogView.findViewById(R.id.edMaLH);
                 final EditText txtName = dialogView.findViewById(R.id.edNameLH);
                 final ImageView imgUD = dialogView.findViewById(R.id.imgLH);
@@ -71,23 +87,36 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.ViewHo
                 final Button btnDel = dialogView.findViewById(R.id.btnDelete_LH);
                 txtID.setText(String.valueOf(item.getMaLoaiHang()));
                 txtName.setText(item.getTenLoaiHang());
+                img = item.getImageLH(); // Cập nhật đường dẫn ảnh mới
                 Glide.with(dialogView)
                         .load(img)
                         .placeholder(R.drawable.a)
                         .error(R.drawable.b)
                         .into(imgUD);
-
                 imgUD.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        fragment.pickThuVienFuntion(); // Truyền item vào để có thể cập nhật hình ảnh
+                        // Đảm bảo fragment không phải là null
+                        if (fragment != null) {
+                            fragment.pickThuVienFuntion();
+                            // Cập nhật đường dẫn ảnh trong item sau khi chọn ảnh
+                            if (fragment.selectedImageUri != null) {
+                                img = item.getImageLH();
+                                Glide.with(dialogView)
+                                        .load(img)
+                                        .placeholder(R.drawable.a)
+                                        .error(R.drawable.b)
+                                        .into(imgUD);
+                            }
+                        }
                     }
                 });
                 btnDel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         loaiHangDao.delete(String.valueOf(item.getMaLoaiHang()));
-                        Toast.makeText(v.getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+                        builder.create().dismiss();
+                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
                         fragment.capNhat();
                     }
                 });
@@ -97,10 +126,20 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.ViewHo
                     public void onClick(View v) {
                         String newName = txtName.getText().toString().trim();
                         if (!newName.isEmpty()) {
-                            String newImagePath = item.getImageLH(); // Lấy đường dẫn hình ảnh mới
                             item.setTenLoaiHang(newName);
-                            item.setImageLH(newImagePath);
+                            if (item != null && fragment.selectedImageUri != null) {
+                                item.setImageLH(fragment.selectedImageUri.toString());
+                                // Các bước cập nhật khác (nếu cần)
+                            } else {
+                                // Xử lý nếu item hoặc selectedImageUri là null
+                            }
+
                             loaiHangDao.update(item);
+                            dialog.dismiss();
+                            // Cập nhật danh sách và thông báo cho Adapter
+                            list.set(position, item);
+                            notifyDataSetChanged();
+
                             Toast.makeText(v.getContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                             fragment.capNhat();
                         } else {
@@ -109,11 +148,12 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.ViewHo
                     }
                 });
 
-                AlertDialog dialog = builder.create();
+
                 dialog.show();
             }
         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -123,15 +163,4 @@ public class LoaiHangAdapter extends RecyclerView.Adapter<LoaiHangAdapter.ViewHo
     public interface ChucNangInterFace {
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvLHName;
-        ImageView ivLH, ivUD;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            tvLHName = itemView.findViewById(R.id.tvLHName);
-            ivLH = itemView.findViewById(R.id.ivLH);
-            ivUD = itemView.findViewById(R.id.btnUDLH);
-        }
-    }
 }

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "DAX";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
     public DbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
@@ -70,7 +70,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
     static final String CREATE_TABLE_USER =
             "create table user (" +
-                    "maUser INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "hoTen TEXT NOT NULL, " +
                     "userName TEXT NOT NULL, " +
                     "password TEXT NOT NULL)";

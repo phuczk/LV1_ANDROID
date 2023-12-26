@@ -59,7 +59,7 @@ public class HangFragment extends Fragment {
     Spinner spinner;
     LoaiHangSpinnerAdapter spinerAdapter;
     int maLoaiHang, position;
-    Uri selectedImageUri;
+    public Uri selectedImageUri;
     ImageView ivH;
     private static final String SHARED_PREFS_KEY_H = "MyAppPreferences_H";
     private static final String IMAGE_URI_KEY_H = "image_uri_H";
@@ -220,7 +220,6 @@ public class HangFragment extends Fragment {
 
                         try {
                             Picasso.get().load(selectedImageUri).placeholder(R.drawable.a).error(R.drawable.b).into(ivH);
-                            // Lưu đường dẫn của ảnh đã chọn vào SharedPreferences
                             SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_KEY_H, Activity.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             if (selectedImageUri != null) {

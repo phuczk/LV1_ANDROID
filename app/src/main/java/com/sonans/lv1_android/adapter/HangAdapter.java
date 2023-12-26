@@ -124,9 +124,17 @@ public class HangAdapter extends RecyclerView.Adapter<HangAdapter.ViewHolder>{
         ivH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment.pickThuVienFuntion();
+                // Đảm bảo fragment không phải là null
+                if (fragment != null) {
+                    fragment.pickThuVienFuntion();
+                    // Cập nhật đường dẫn ảnh trong item sau khi chọn ảnh
+                    if (fragment.selectedImageUri != null) {
+                        img = fragment.selectedImageUri.toString();
+                    }
+                }
             }
         });
+
         if(item != null){
             tvId.setText(String.valueOf(item.getMaHang()));
             tvName.setText(item.getTenHang());
@@ -144,7 +152,6 @@ public class HangAdapter extends RecyclerView.Adapter<HangAdapter.ViewHolder>{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 maLoaiHang = loaiHangList.get(position).getMaLoaiHang();
-                Toast.makeText(context, "chon: "+loaiHangList.get(position).getTenLoaiHang(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
